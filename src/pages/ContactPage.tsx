@@ -6,11 +6,8 @@ import {ContactDto} from 'src/types/dto/ContactDto';
 import {ContactCard} from 'src/components/ContactCard';
 import {Empty} from 'src/components/Empty';
 
-
-export const ContactPage: FC<CommonPageProps> = ({
-  contactsState
-}) => {
-  const {contactId} = useParams<{ contactId: string }>();
+export const ContactPage: FC<CommonPageProps> = ({contactsState}) => {
+  const {contactId} = useParams<{contactId: string}>();
   const [contact, setContact] = useState<ContactDto>();
 
   useEffect(() => {

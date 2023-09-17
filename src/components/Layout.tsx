@@ -15,17 +15,15 @@ export const Layout = () => {
           <MainMenu />
         </Col>
         <Col xxl={12}>
-          <Breadcrumbs pathNames={pathNames}/>
+          <Breadcrumbs pathNames={pathNames} />
         </Col>
         <Col xxl={12}>
           <Outlet />
         </Col>
         <Col xxl={12}>
-          <footer>
-
-          </footer>
+          <footer></footer>
         </Col>
       </Row>
     </Container>
   );
-}
+};
