@@ -1,7 +1,6 @@
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
-import {ContactCard} from 'src/components/ContactCard';
-import {Empty} from 'src/components/Empty';
+import {ContactCard, Empty} from 'src/components';
 import {useAppSelector} from 'src/model';
 
 export const ContactPage = () => {

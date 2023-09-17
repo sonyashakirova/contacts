@@ -1,5 +1,5 @@
 import {Col, Row} from 'react-bootstrap';
-import {GroupContactsCard} from 'src/components/GroupContactsCard';
+import {GroupContactsCard} from 'src/components';
 import {useAppSelector} from 'src/model';
 
 export const GroupListPage = () => {

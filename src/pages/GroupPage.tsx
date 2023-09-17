@@ -1,8 +1,6 @@
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
-import {GroupContactsCard} from 'src/components/GroupContactsCard';
-import {Empty} from 'src/components/Empty';
-import {ContactCard} from 'src/components/ContactCard';
+import {ContactCard, Empty, GroupContactsCard} from 'src/components';
 import {useAppSelector} from 'src/model';
 
 export const GroupPage = () => {

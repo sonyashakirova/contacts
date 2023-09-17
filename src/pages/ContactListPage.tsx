@@ -1,6 +1,6 @@
 import {Col, Row} from 'react-bootstrap';
-import {ContactCard} from 'src/components/ContactCard';
-import {FilterForm, FilterFormValues} from 'src/components/FilterForm';
+import {ContactCard, FilterForm} from 'src/components';
+import {FilterFormValues} from 'src/components/FilterForm';
 import {
   filterContactsActionCreator,
   useAppDispatch,

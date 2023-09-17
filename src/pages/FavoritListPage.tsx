@@ -1,5 +1,5 @@
 import {Col, Row} from 'react-bootstrap';
-import {ContactCard} from 'src/components/ContactCard';
+import {ContactCard} from 'src/components';
 import {useAppSelector} from 'src/model';
 
 export const FavoritListPage = () => {

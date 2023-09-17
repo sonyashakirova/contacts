@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import {memo} from 'react';
 import {Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {GroupContactsDto} from 'src/types/dto/GroupContactsDto';
