@@ -1,13 +1,14 @@
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
 import {ContactCard, Empty} from 'src/components';
-import {useAppSelector} from 'src/model';
+import {useGetContactsQuery} from 'src/model/contacts';
 
 export const ContactPage = () => {
   const {contactId} = useParams<{contactId: string}>();
-  const contact = useAppSelector((state) =>
-    state.contacts.find(({id}) => id === contactId)
-  );
+  const contactsData = useGetContactsQuery();
+  const contact = contactsData.isSuccess
+    ? contactsData.data.find(({id}) => id === contactId)
+    : null;
 
   return (
     <Row xxl={3}>

@@ -10,7 +10,7 @@ import {
   FavoritListPage,
   GroupListPage,
 } from 'src/pages';
-import {store} from 'src/model';
+import {store} from 'src/model/store';
 
 export const MainApp = () => {
   return (
