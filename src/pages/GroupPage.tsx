@@ -1,20 +1,26 @@
+import {observer} from 'mobx-react-lite';
+import {useEffect} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
 import {ContactCard, Empty, GroupContactsCard} from 'src/components';
-import {useGetContactsQuery} from 'src/model/contacts';
-import {useGetGroupsQuery} from 'src/model/groups';
+import {contactsStore, groupsStore} from 'src/model';
 
-export const GroupPage = () => {
+export const GroupPage = observer(() => {
   const {groupId} = useParams<{groupId: string}>();
-  const groupsData = useGetGroupsQuery();
-  const group = groupsData.isSuccess
-    ? groupsData.data.find(({id}) => id === groupId)
-    : null;
-  const contactsData = useGetContactsQuery();
-  const contacts =
-    contactsData.isSuccess && group
-      ? contactsData.data.filter(({id}) => group.contactIds.includes(id))
-      : [];
+  const group = groupsStore.groups.find(({id}) => id === groupId);
+  const contacts = group
+    ? contactsStore.contacts.filter(({id}) => group.contactIds.includes(id))
+    : [];
+
+  useEffect(() => {
+    if (!groupsStore.groups.length) {
+      groupsStore.get();
+    }
+
+    if (!contactsStore.contacts.length) {
+      contactsStore.get();
+    }
+  }, []);
 
   return (
     <Row className="g-4">
@@ -42,4 +48,4 @@ export const GroupPage = () => {
       )}
     </Row>
   );
-};
+});

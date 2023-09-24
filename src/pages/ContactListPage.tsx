@@ -1,25 +1,26 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
+import {observer} from 'mobx-react-lite';
 import {Col, Row} from 'react-bootstrap';
 import {ContactCard, FilterForm} from 'src/components';
 import {FilterFormValues} from 'src/components/FilterForm';
-import {useGetGroupsQuery} from 'src/model/groups';
-import {useGetContactsQuery} from 'src/model/contacts';
-import {filterContacts} from 'src/model/contacts/lib';
+import {contactsStore, groupsStore} from 'src/model';
 
-export const ContactListPage = () => {
-  const contactsData = useGetContactsQuery();
-  const contacts = contactsData.isSuccess ? contactsData.data : [];
-  const groupsData = useGetGroupsQuery();
-  const groups = groupsData.isSuccess ? groupsData.data : [];
-
-  const [filteredContacts, setFilteredContacts] = useState(contacts);
+export const ContactListPage = observer(() => {
+  const contacts = contactsStore.contacts;
+  const groups = groupsStore.groups;
 
   useEffect(() => {
-    setFilteredContacts(contacts);
-  }, [contacts]);
+    if (!contacts.length) {
+      contactsStore.get();
+    }
+
+    if (!groups.length) {
+      groupsStore.get();
+    }
+  }, []);
 
   const onSubmit = (filterValues: Partial<FilterFormValues>): void => {
-    setFilteredContacts(filterContacts(contacts, filterValues, groups));
+    contactsStore.filter(filterValues);
   };
 
   return (
@@ -33,7 +34,7 @@ export const ContactListPage = () => {
       </Col>
       <Col>
         <Row xxl={4} className="g-4">
-          {filteredContacts.map((contact) => (
+          {contacts.map((contact) => (
             <Col key={contact.id}>
               <ContactCard contact={contact} withLink />
             </Col>
@@ -42,4 +43,4 @@ export const ContactListPage = () => {
       </Col>
     </Row>
   );
-};
+});
