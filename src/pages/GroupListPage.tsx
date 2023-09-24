@@ -1,9 +1,10 @@
 import {Col, Row} from 'react-bootstrap';
 import {GroupContactsCard} from 'src/components';
-import {useAppSelector} from 'src/model';
+import {useGetGroupsQuery} from 'src/model/groups';
 
 export const GroupListPage = () => {
-  const groups = useAppSelector((state) => state.groups);
+  const groupsData = useGetGroupsQuery();
+  const groups = groupsData.isSuccess ? groupsData.data : [];
 
   return (
     <Row xxl={4}>

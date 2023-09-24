@@ -1,19 +1,25 @@
+import {useEffect, useState} from 'react';
 import {Col, Row} from 'react-bootstrap';
 import {ContactCard, FilterForm} from 'src/components';
 import {FilterFormValues} from 'src/components/FilterForm';
-import {
-  filterContactsActionCreator,
-  useAppDispatch,
-  useAppSelector,
-} from 'src/model';
+import {useGetGroupsQuery} from 'src/model/groups';
+import {useGetContactsQuery} from 'src/model/contacts';
+import {filterContacts} from 'src/model/contacts/lib';
 
 export const ContactListPage = () => {
-  const dispatch = useAppDispatch();
-  const contacts = useAppSelector((state) => state.contacts);
-  const groups = useAppSelector((state) => state.groups);
+  const contactsData = useGetContactsQuery();
+  const contacts = contactsData.isSuccess ? contactsData.data : [];
+  const groupsData = useGetGroupsQuery();
+  const groups = groupsData.isSuccess ? groupsData.data : [];
+
+  const [filteredContacts, setFilteredContacts] = useState(contacts);
+
+  useEffect(() => {
+    setFilteredContacts(contacts);
+  }, [contacts]);
 
   const onSubmit = (filterValues: Partial<FilterFormValues>): void => {
-    dispatch(filterContactsActionCreator(filterValues, groups));
+    setFilteredContacts(filterContacts(contacts, filterValues, groups));
   };
 
   return (
@@ -27,7 +33,7 @@ export const ContactListPage = () => {
       </Col>
       <Col>
         <Row xxl={4} className="g-4">
-          {contacts.map((contact) => (
+          {filteredContacts.map((contact) => (
             <Col key={contact.id}>
               <ContactCard contact={contact} withLink />
             </Col>
